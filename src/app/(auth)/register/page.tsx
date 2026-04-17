@@ -2,10 +2,12 @@
 
 import React from 'react'
 import NextLink from 'next/link'
-import { TextField, Input, Label, Button } from '@heroui/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerSchema, type RegisterFormValues } from '@/app/lib/schema'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 export default function Register() {
   const {
@@ -34,54 +36,49 @@ export default function Register() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4 rounded-md shadow-sm">
-            <TextField isInvalid={!!errors.name} fullWidth>
-              <Label className="mb-1 block text-sm font-medium text-gray-700">Full Name</Label>
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-sm font-medium text-gray-700">Full Name</Label>
               <Input
                 {...register('name')}
-                id="full-name"
+                id="name"
                 type="text"
                 autoComplete="name"
-                className="relative block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-rose-500 focus:outline-none focus:ring-rose-500 sm:text-sm"
                 placeholder="John Doe"
+                className={`w-full ${errors.name ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
               />
               {errors.name && <span className="text-xs text-red-500 mt-1 block">{errors.name.message}</span>}
-            </TextField>
-            <div className="pt-2">
-              <TextField isInvalid={!!errors.email} fullWidth>
-                <Label className="mb-1 block text-sm font-medium text-gray-700">Email address</Label>
-                <Input
-                  {...register('email')}
-                  id="email-address"
-                  type="email"
-                  autoComplete="email"
-                  className="relative block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-rose-500 focus:outline-none focus:ring-rose-500 sm:text-sm"
-                  placeholder="you@example.com"
-                />
-                {errors.email && <span className="text-xs text-red-500 mt-1 block">{errors.email.message}</span>}
-              </TextField>
             </div>
-            <div className="pt-2">
-              <TextField isInvalid={!!errors.password} fullWidth>
-                <Label className="mb-1 block text-sm font-medium text-gray-700">Password</Label>
-                <Input
-                  {...register('password')}
-                  id="password"
-                  type="password"
-                  autoComplete="new-password"
-                  className="relative block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-rose-500 focus:outline-none focus:ring-rose-500 sm:text-sm"
-                  placeholder="••••••••"
-                />
-                {errors.password && <span className="text-xs text-red-500 mt-1 block">{errors.password.message}</span>}
-              </TextField>
+            <div className="space-y-2 pt-2">
+              <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email address</Label>
+              <Input
+                {...register('email')}
+                id="email"
+                type="email"
+                autoComplete="email"
+                placeholder="you@example.com"
+                className={`w-full ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+              />
+              {errors.email && <span className="text-xs text-red-500 mt-1 block">{errors.email.message}</span>}
+            </div>
+            <div className="space-y-2 pt-2">
+              <Label htmlFor="password" className="text-sm font-medium text-gray-700">Password</Label>
+              <Input
+                {...register('password')}
+                id="password"
+                type="password"
+                autoComplete="new-password"
+                placeholder="••••••••"
+                className={`w-full ${errors.password ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+              />
+              {errors.password && <span className="text-xs text-red-500 mt-1 block">{errors.password.message}</span>}
             </div>
           </div>
 
           <div className="mt-6">
             <Button
               type="submit"
-              fullWidth
-              isDisabled={isSubmitting}
-              className="font-medium bg-rose-600 text-white"
+              className="w-full font-medium bg-rose-600 hover:bg-rose-700 text-white"
+              disabled={isSubmitting}
             >
               {isSubmitting ? 'Signing up...' : 'Sign up'}
             </Button>

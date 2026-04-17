@@ -58,7 +58,7 @@ export const Navbar = () => {
 
   const isAuthenticated = status === 'authenticated';
   // Attempt to read role safely from session. Defaults to USER if not defined.
-  const userRole = (session?.user as any)?.role || 'USER'; 
+  const userRole = (session?.user as { role?: string })?.role || 'USER';
   
   const currentLinks = !isAuthenticated
     ? guestLinks
@@ -81,7 +81,7 @@ export const Navbar = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-gray-900 tracking-tight leading-none">
-                  St. Joseph's
+                  St. Joseph&apos;s
                 </span>
                 <span className="text-xs font-medium text-rose-600 leading-tight">
                   Matrimony Platform

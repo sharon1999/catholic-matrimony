@@ -33,7 +33,7 @@ export const MobileMenu = ({ isOpen, links, isAuthenticated, onClose, onLogout }
             <div className="w-8 h-8 rounded-md bg-rose-600 flex items-center justify-center">
                <span className="text-white font-bold text-lg leading-none">S</span>
             </div>
-            <span className="text-lg font-bold text-gray-900">St. Joseph's</span>
+            <span className="text-lg font-bold text-gray-900">St. Joseph&apos;s</span>
           </Link>
         </div>
         

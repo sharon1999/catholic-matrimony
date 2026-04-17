@@ -1,10 +1,13 @@
 'use client'
 
 import NextLink from 'next/link'
-import { TextField, Input, Label, Button, Checkbox, Link as HeroLink } from '@heroui/react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema, type LoginFormValues } from '@/app/lib/schema'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export default function Login() {
   const {
@@ -37,62 +40,62 @@ export default function Login() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4 rounded-md shadow-sm">
-            <TextField isInvalid={!!errors.email} fullWidth>
-              <Label className="mb-1 block text-sm font-medium text-gray-700">Email address</Label>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email address</Label>
               <Input
                 {...register('email')}
                 type="email"
-                id="email-address"
+                id="email"
                 autoComplete="email"
                 placeholder="you@example.com"
-                className="relative block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-rose-500 focus:outline-none focus:ring-rose-500 sm:text-sm"
+                className={`w-full ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
               />
               {errors.email && <span className="text-xs text-red-500 mt-1 block">{errors.email.message}</span>}
-            </TextField>
-            <div className="pt-2">
-              <TextField isInvalid={!!errors.password} fullWidth>
-                <Label className="mb-1 block text-sm font-medium text-gray-700">Password</Label>
-                <Input
-                  {...register('password')}
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  placeholder="••••••••"
-                  className="relative block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-rose-500 focus:outline-none focus:ring-rose-500 sm:text-sm"
-                />
-                {errors.password && <span className="text-xs text-red-500 mt-1 block">{errors.password.message}</span>}
-              </TextField>
+            </div>
+            <div className="space-y-2 pt-2">
+              <Label htmlFor="password" className="text-sm font-medium text-gray-700">Password</Label>
+              <Input
+                {...register('password')}
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                placeholder="••••••••"
+                className={`w-full ${errors.password ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+              />
+              {errors.password && <span className="text-xs text-red-500 mt-1 block">{errors.password.message}</span>}
             </div>
           </div>
 
           <div className="flex items-center justify-between mt-6">
-            <Controller
-              name="rememberMe"
-              control={control}
-              render={({ field }) => (
-                <Checkbox
-                  id="remember-me"
-                  isSelected={field.value}
-                  onChange={field.onChange}
-                >
-                  <span className="text-sm text-gray-900">Remember me</span>
-                </Checkbox>
-              )}
-            />
+            <div className="flex items-center space-x-2">
+              <Controller
+                name="rememberMe"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox
+                    id="remember-me"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                )}
+              />
+              <Label htmlFor="remember-me" className="text-sm text-gray-900 cursor-pointer">
+                Remember me
+              </Label>
+            </div>
 
             <div className="text-sm">
-              <HeroLink href="#" className="font-medium text-gray-600 hover:text-gray-900">
+              <NextLink href="#" className="font-medium text-rose-600 hover:text-rose-500">
                 Forgot your password?
-              </HeroLink>
+              </NextLink>
             </div>
           </div>
 
           <div className="mt-6">
             <Button
               type="submit"
-              fullWidth
-              isDisabled={isSubmitting}
-              className="font-medium bg-rose-600 text-white"
+              className="w-full font-medium bg-rose-600 hover:bg-rose-700 text-white"
+              disabled={isSubmitting}
             >
               {isSubmitting ? 'Signing in...' : 'Sign in'}
             </Button>
